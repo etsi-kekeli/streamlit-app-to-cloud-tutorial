@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import pickle
 
-st.title('Machine learning app')
+st.title('Pinguin Classification app')
 
-st.info('This is a Machine learning app!')
+# st.info('This is a Machine learning app!')
 
 with st.expander("Data"):
     st.write("**Raw Data**")
@@ -16,13 +16,11 @@ with st.expander("Data"):
     y = df.species
 
 with st.expander("Data visualization"):
-    # bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g",
     st.scatter_chart(data=df, x="bill_length_mm",
                      y="bill_depth_mm", color="species")
 
 with st.sidebar:
     st.header("Input features")
-    # "island","bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g","sex"
     island = st.selectbox("Island", (X.island.unique()))
     sex = st.selectbox("Sex", ("male", "female"))
     bill_length_mm = st.slider(
@@ -44,12 +42,6 @@ with st.sidebar:
 with st.expander("input features"):
     input_df = pd.DataFrame(data, index=[0])
     input_df
-    # all_pinguins = pd.concat([pd.DataFrame(data, index=[0]), X])
-
-    # categorical_cols = ["island", "sex"]
-    # prep_data = pd.get_dummies(all_pinguins, prefix=categorical_cols)
-    # st.write("**Encoded input penguins**")
-    # prep_data.loc[0, :]
 
     with open("model.pkl", "rb") as file:
         processing_pipeline = pickle.load(file)
